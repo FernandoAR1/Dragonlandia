@@ -56,6 +56,21 @@ public class Controller {
         }
     }
 
+    public void actualizarBosque(Bosque bosque) {
+        Session session = null;
+
+        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
+            session = factory.getCurrentSession();
+            Transaction tx = session.beginTransaction();
+
+            session.merge(bosque);
+            tx.commit();
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
     public void simularBatalla(Mago mago, Monstruo monstruo) {
         int i=1;
 

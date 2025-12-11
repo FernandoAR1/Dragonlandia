@@ -16,14 +16,19 @@ public class Monstruo {
     private tipo tipo;
     private int fuerza;
 
+    @ManyToOne
+    @JoinColumn(name = "bosque_id")
+    private Bosque bosque;
+
     public Monstruo() {
     }
 
-    public Monstruo(String nombre, int vida, tipo tipo, int fuerza) {
+    public Monstruo(String nombre, int vida, tipo tipo, int fuerza, Bosque bosque) {
         this.nombre = nombre;
         this.vida = vida;
         this.tipo = tipo;
         this.fuerza = fuerza;
+        this.bosque = bosque;
     }
 
     public int getId() {

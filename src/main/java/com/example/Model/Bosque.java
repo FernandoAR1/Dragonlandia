@@ -1,5 +1,7 @@
 package com.example.Model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -14,16 +16,19 @@ public class Bosque {
     private int nivelPeligro;
     
     @OneToOne
-    @JoinColumn(name = "monstruo_id")
+    @JoinColumn(name = "monstruoJefe_id")
     private Monstruo monstruoJefe;
+
+    // Relación bidireccional: usa la FK bosque_id en Monstruo, evita tabla intermedia bosque_monstruo
+    @OneToMany(mappedBy = "bosque")
+    private List<Monstruo> monstruos;
 
     public Bosque() {
     }
 
-    public Bosque(String nombre, int nivelPeligro, Monstruo monstruoJefe) {
+    public Bosque(String nombre, int nivelPeligro) {
         this.nombre = nombre;
         this.nivelPeligro = nivelPeligro;
-        this.monstruoJefe = monstruoJefe;
     }
 
     public int getId() {
