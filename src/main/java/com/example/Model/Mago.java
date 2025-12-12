@@ -75,9 +75,11 @@ public class Mago {
     }
 
     public boolean LanzarHechizo(Monstruo monstruo, Hechizo hechizo) {
-        if (hechizos.contains(hechizo)) {
-            monstruo.setVida(monstruo.getVida() - hechizo.getEfecto());
-            return true;
+        for (Hechizo h : hechizos) {
+            if (h.getNombre() == hechizo.getNombre()) {
+                monstruo.setVida(monstruo.getVida() - hechizo.getEfecto());
+                return true;
+            }
         }
         this.vida -= 1;
         return false;

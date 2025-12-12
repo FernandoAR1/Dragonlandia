@@ -104,8 +104,8 @@ public class Controller {
     public void simularBatalla(Mago mago, Monstruo monstruo) {
         int i=1;
 
-        Hechizo hechizo1 = new Hechizo(nombreHechizo.Bola_de_fuego, 30, mago);
-        Hechizo hechizo2 = new Hechizo(nombreHechizo.Descarga, 20, mago);
+        Hechizo hechizo1 = new Hechizo(nombreHechizo.Bola_de_nieve, mago);
+        Hechizo hechizo2 = new Hechizo(nombreHechizo.Descarga, mago);
 
         if (mago.LanzarHechizo(monstruo, hechizo2)) {
             System.out.println("El hechizo ha impactado correctamente.");

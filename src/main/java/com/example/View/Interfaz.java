@@ -60,9 +60,9 @@ public class Interfaz {
 
         Mago mago = new Mago(nombreMago, vidaMago, nivelMagia);
         List<Hechizo> hechizos = new ArrayList<>();
-        hechizos.add(new Hechizo(nombreHechizo.Bola_de_fuego, nombreHechizo.Bola_de_fuego.getEfecto(), mago));
-        hechizos.add(new Hechizo(nombreHechizo.Rayo, nombreHechizo.Rayo.getEfecto(), mago));
-        hechizos.add(new Hechizo(nombreHechizo.Bola_de_nieve, nombreHechizo.Bola_de_nieve.getEfecto(), mago));
+        hechizos.add(new Hechizo(nombreHechizo.Bola_de_fuego, mago));
+        hechizos.add(new Hechizo(nombreHechizo.Rayo, mago));
+        hechizos.add(new Hechizo(nombreHechizo.Bola_de_nieve, mago));
 
         mago.setHechizos(hechizos);
 

@@ -21,9 +21,9 @@ public class Hechizo {
 
     public Hechizo() {}
 
-    public Hechizo(nombreHechizo nombre, int efecto, Mago mago) {
+    public Hechizo(nombreHechizo nombre,Mago mago) {
         this.nombre = nombre;
-        this.efecto = efecto;
+        this.efecto = nombre.getEfecto();
         this.mago = mago;
     }
 
