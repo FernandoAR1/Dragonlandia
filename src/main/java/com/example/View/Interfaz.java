@@ -1,67 +1,40 @@
 package com.example.View;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.example.Controller.Controller;
 import com.example.Model.Bosque;
+import com.example.Model.Dragon;
 import com.example.Model.Mago;
 import com.example.Model.Monstruo;
+import com.example.Model.nombreHechizo;
 import com.example.Model.tipo;
 
 public class Interfaz {
+    private Scanner scanner;
+    private Controller controller;
+
+    public Interfaz() {
+        this.scanner = new Scanner(System.in);
+        this.controller = Controller.getInstance();
+    }
+
     public void iniciar() {
-        Scanner scanner = new Scanner(System.in);
-        Controller controller = new Controller();
-
-        System.out.println("Mago:");
-        System.out.print("Introduce el nombre del mago: ");
-        String nombreMago = scanner.nextLine();
-        System.out.print("Introduce la vida del mago: ");
-        int vidaMago = scanner.nextInt();
-        System.out.print("Introduce el nivel de magia del mago: ");
-        int nivelMagia = scanner.nextInt();
-        scanner.nextLine(); // Consumir el salto de línea
-
-        Mago mago = new Mago(nombreMago, vidaMago, nivelMagia);
-
+        Mago mago = crearMago();
         controller.guardarMago(mago);
 
-        Bosque bosque = new Bosque("Bosque Encantado", 2);
+        Bosque bosque = crearBosque();
         controller.guardarBosque(bosque);
 
-        System.out.println("Monstruo jefe del bosque:");
-        System.out.print("Introduce el nombre del monstruo: ");
-        String nombreMonstruo = scanner.nextLine();
-        System.out.print("Introduce la vida del monstruo: ");
-        int vidaMonstruo = scanner.nextInt();
-        scanner.nextLine(); // Consumir el salto de línea
-        System.out.print("Introduce el tipo del monstruo (OGRO, TROLL, ESPECTRO): ");
-        String tipoMonstruoStr = scanner.nextLine();
-        tipo tipoMonstruo = tipo.valueOf(tipoMonstruoStr.toUpperCase());
-        System.out.print("Introduce el poder de ataque del monstruo: ");
-        int poderAtaque = scanner.nextInt();
-        scanner.nextLine(); // Consumir el salto de línea
-
-        Monstruo monstruo = new Monstruo(nombreMonstruo, vidaMonstruo, tipoMonstruo, poderAtaque, bosque);
-
+        Monstruo monstruo = crearMonstruo("Monstruo jefe del bosque:", bosque);
         controller.guardarMonstruo(monstruo);
 
-        System.out.println("Monstruo jefe del bosque:");
-        System.out.print("Introduce el nombre del monstruo: ");
-        String nombreMonstruo2 = scanner.nextLine();
-        System.out.print("Introduce la vida del monstruo: ");
-        int vidaMonstruo2 = scanner.nextInt();
-        scanner.nextLine(); // Consumir el salto de línea
-        System.out.print("Introduce el tipo del monstruo (OGRO, TROLL, ESPECTRO): ");
-        String tipoMonstruoStr2 = scanner.nextLine();
-        tipo tipoMonstruo2 = tipo.valueOf(tipoMonstruoStr2.toUpperCase());
-        System.out.print("Introduce el poder de ataque del monstruo: ");
-        int poderAtaque2 = scanner.nextInt();
-        scanner.nextLine(); // Consumir el salto de línea
-
-        Monstruo monstruo2 = new Monstruo(nombreMonstruo2, vidaMonstruo2, tipoMonstruo2, poderAtaque2, bosque);
-
+        Monstruo monstruo2 = crearMonstruo("Segundo monstruo:", bosque);
         controller.guardarMonstruo(monstruo2);
+
+        Dragon dragon = crearDragon(bosque);
+        controller.guardarDragon(dragon);
 
         bosque.setMonstruoJefe(monstruo);
         controller.actualizarBosque(bosque);
@@ -70,6 +43,50 @@ public class Interfaz {
         controller.simularBatalla(mago, monstruo);
 
         scanner.close();
-        
+    }
+
+    private Mago crearMago() {
+        System.out.println("Mago:");
+        System.out.print("Introduce el nombre del mago: ");
+        String nombreMago = scanner.nextLine();
+        System.out.print("Introduce la vida del mago: ");
+        int vidaMago = scanner.nextInt();
+        System.out.print("Introduce el nivel de magia del mago: ");
+        int nivelMagia = scanner.nextInt();
+        scanner.nextLine();
+
+        Mago mago = new Mago(nombreMago, vidaMago, nivelMagia);
+        List<String> hechizos = List.of(
+            nombreHechizo.Bola_de_fuego.toString(),
+            nombreHechizo.Rayo.toString(),
+            nombreHechizo.Bola_de_nieve.toString()
+        );
+        mago.setHechizos(hechizos);
+        return mago;
+    }
+
+    private Bosque crearBosque() {
+        return new Bosque("Bosque Encantado", 2);
+    }
+
+    private Monstruo crearMonstruo(String mensaje, Bosque bosque) {
+        System.out.println(mensaje);
+        System.out.print("Introduce el nombre del monstruo: ");
+        String nombre = scanner.nextLine();
+        System.out.print("Introduce la vida del monstruo: ");
+        int vida = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Introduce el tipo del monstruo (OGRO, TROLL, ESPECTRO): ");
+        String tipoStr = scanner.nextLine();
+        tipo tipoMonstruo = tipo.valueOf(tipoStr.toUpperCase());
+        System.out.print("Introduce el poder de ataque del monstruo: ");
+        int poderAtaque = scanner.nextInt();
+        scanner.nextLine();
+
+        return new Monstruo(nombre, vida, tipoMonstruo, poderAtaque, bosque);
+    }
+
+    private Dragon crearDragon(Bosque bosque) {
+        return new Dragon("Fuego", 50, 100, bosque);
     }
 }

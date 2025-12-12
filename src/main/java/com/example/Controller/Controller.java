@@ -1,8 +1,11 @@
 package com.example.Controller;
 
 import com.example.Model.Bosque;
+import com.example.Model.Dragon;
+import com.example.Model.Hechizo;
 import com.example.Model.Mago;
 import com.example.Model.Monstruo;
+import com.example.Model.nombreHechizo;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,6 +13,18 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 public class Controller {
+
+    private static Controller instance;
+
+    private Controller() {
+    }
+
+    public static Controller getInstance() {
+        if (instance == null) {
+            instance = new Controller();
+        }
+        return instance;
+    }
 
     public void guardarMago(Mago mago) {
         Session session = null;
@@ -56,6 +71,21 @@ public class Controller {
         }
     }
 
+    public void guardarDragon(Dragon dragon) {
+        Session session = null;
+
+        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
+            session = factory.getCurrentSession();
+            Transaction tx = session.beginTransaction();
+
+            session.persist(dragon);
+            tx.commit();
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
     public void actualizarBosque(Bosque bosque) {
         Session session = null;
 
@@ -73,6 +103,22 @@ public class Controller {
 
     public void simularBatalla(Mago mago, Monstruo monstruo) {
         int i=1;
+
+        Hechizo hechizo1 = new Hechizo(nombreHechizo.Bola_de_fuego, 30);
+        Hechizo hechizo2 = new Hechizo(nombreHechizo.Descarga, 20);
+
+        if (mago.LanzarHechizo(monstruo, hechizo2)) {
+            System.out.println("El hechizo ha impactado correctamente.");
+        } else {
+            System.out.println("El hechizo ha fallado.");
+        }
+
+        if (mago.LanzarHechizo(monstruo, hechizo1)) {
+            System.out.println("El hechizo ha impactado correctamente.");
+        } else {
+            System.out.println("El hechizo ha fallado.");
+        }
+
 
         while (mago.getVida() > 0 && monstruo.getVida() > 0) {
             mago.lanzarHechizo(monstruo);

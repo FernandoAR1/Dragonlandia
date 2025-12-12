@@ -41,6 +41,7 @@
         <mapping class="com.example.Model.Mago"/>
         <mapping class="com.example.Model.Monstruo"/>
         <mapping class="com.example.Model.Bosque"/>
+        <mapping class="com.example.Model.Dragon"/>
 
     </session-factory>
 </hibernate-configuration>

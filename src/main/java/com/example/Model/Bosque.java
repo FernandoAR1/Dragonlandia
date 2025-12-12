@@ -23,6 +23,9 @@ public class Bosque {
     @OneToMany(mappedBy = "bosque")
     private List<Monstruo> monstruos;
 
+    @OneToMany(mappedBy = "bosque")
+    private List<Dragon> dragones;
+
     public Bosque() {
     }
 
