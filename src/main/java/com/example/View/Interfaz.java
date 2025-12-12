@@ -1,11 +1,13 @@
 package com.example.View;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import com.example.Controller.Controller;
 import com.example.Model.Bosque;
 import com.example.Model.Dragon;
+import com.example.Model.Hechizo;
 import com.example.Model.Mago;
 import com.example.Model.Monstruo;
 import com.example.Model.nombreHechizo;
@@ -39,7 +41,8 @@ public class Interfaz {
         bosque.setMonstruoJefe(monstruo);
         controller.actualizarBosque(bosque);
 
-        System.out.println("Iniciando batalla entre el mago " + mago.getNombre() + " y el monstruo " + monstruo.getNombre());
+        System.out.println(
+                "Iniciando batalla entre el mago " + mago.getNombre() + " y el monstruo " + monstruo.getNombre());
         controller.simularBatalla(mago, monstruo);
 
         scanner.close();
@@ -56,12 +59,13 @@ public class Interfaz {
         scanner.nextLine();
 
         Mago mago = new Mago(nombreMago, vidaMago, nivelMagia);
-        List<String> hechizos = List.of(
-            nombreHechizo.Bola_de_fuego.toString(),
-            nombreHechizo.Rayo.toString(),
-            nombreHechizo.Bola_de_nieve.toString()
-        );
+        List<Hechizo> hechizos = new ArrayList<>();
+        hechizos.add(new Hechizo(nombreHechizo.Bola_de_fuego, nombreHechizo.Bola_de_fuego.getEfecto(), mago));
+        hechizos.add(new Hechizo(nombreHechizo.Rayo, nombreHechizo.Rayo.getEfecto(), mago));
+        hechizos.add(new Hechizo(nombreHechizo.Bola_de_nieve, nombreHechizo.Bola_de_nieve.getEfecto(), mago));
+
         mago.setHechizos(hechizos);
+
         return mago;
     }
 

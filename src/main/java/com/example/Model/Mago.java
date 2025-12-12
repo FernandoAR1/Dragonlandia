@@ -1,5 +1,6 @@
 package com.example.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -15,7 +16,9 @@ public class Mago {
     private String nombre;
     private int vida;
     private int nivelMagia;
-    private List<String> hechizos;
+
+    @OneToMany(mappedBy = "mago", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Hechizo> hechizos = new ArrayList<>();
 
     public Mago() {
     }
@@ -58,28 +61,26 @@ public class Mago {
         this.nivelMagia = nivelMagia;
     }
 
-    public List<String> getHechizos() {
+    public List<Hechizo> getHechizos() {
         return hechizos;
     }
 
-    public void setHechizos(List<String> hechizos) {
+    public void setHechizos(List<Hechizo> hechizos) {
         this.hechizos = hechizos;
     }
-    
+
     public void lanzarHechizo(Monstruo mostruo) {
         int nuevaVida = mostruo.getVida() - this.nivelMagia;
         mostruo.setVida(nuevaVida);
     }
 
-    public boolean LanzarHechizo(Monstruo monstruo,Hechizo hechizo) {
-        boolean pegar=false;
-        if (hechizos.contains(hechizo.getNombre().toString())) {
-            int nuevaVida = monstruo.getVida() - hechizo.getEfecto();
-            monstruo.setVida(nuevaVida);
-            pegar=true;
-        }else{
-            this.vida -= 1;
+    public boolean LanzarHechizo(Monstruo monstruo, Hechizo hechizo) {
+        if (hechizos.contains(hechizo)) {
+            monstruo.setVida(monstruo.getVida() - hechizo.getEfecto());
+            return true;
         }
-        return pegar;
+        this.vida -= 1;
+        return false;
     }
+
 }

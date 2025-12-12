@@ -1,16 +1,34 @@
 package com.example.Model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "hechizo")
 public class Hechizo {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Enumerated(EnumType.STRING)
     private nombreHechizo nombre;
+
     private int efecto;
 
-    public Hechizo() {
-    }
+    @ManyToOne
+    @JoinColumn(name = "mago_id")
+    private Mago mago;   // ← Dueño de la relación
 
-    public Hechizo(nombreHechizo nombre, int efecto) {
+    public Hechizo() {}
+
+    public Hechizo(nombreHechizo nombre, int efecto, Mago mago) {
         this.nombre = nombre;
         this.efecto = efecto;
+        this.mago = mago;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public nombreHechizo getNombre() {
@@ -22,22 +40,18 @@ public class Hechizo {
     }
 
     public int getEfecto() {
-        efecto = 0;
-        if (nombre == nombreHechizo.Bola_de_fuego) {
-            efecto = 10;
-        }else if (nombre == nombreHechizo.Rayo) {
-            efecto = 20;
-        }else if (nombre == nombreHechizo.Bola_de_nieve) {
-            efecto = 999999;
-        }else if (nombre == nombreHechizo.Descarga) {
-            efecto = 10;
-        }else if (nombre == nombreHechizo.Maldicion_duende) {
-            efecto = 10;
-        }
         return efecto;
     }
 
     public void setEfecto(int efecto) {
         this.efecto = efecto;
+    }
+
+    public Mago getMago() {
+        return mago;
+    }
+
+    public void setMago(Mago mago) {
+        this.mago = mago;
     }
 }
