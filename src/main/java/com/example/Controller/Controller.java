@@ -49,8 +49,10 @@ public class Controller {
 
         if (mago.getVida() > 0) {
             System.out.println("El mago " + mago.getNombre() + " domina el bosque!");
+            new ControllerMonstruo().eliminarMonstruo(monstruo);
         } else {
             System.out.println("El monstruo " + monstruo.getNombre() + " domina el bosque!");
+            new ControllerMago().eliminarMago(mago);
         }
     }
 }

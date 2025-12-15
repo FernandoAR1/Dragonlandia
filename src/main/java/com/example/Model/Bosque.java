@@ -2,6 +2,9 @@ package com.example.Model;
 
 import java.util.List;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -16,7 +19,8 @@ public class Bosque {
     private int nivelPeligro;
     
     @OneToOne
-    @JoinColumn(name = "monstruoJefe_id")
+    @JoinColumn(name = "monstruoJefe_id", nullable = true)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Monstruo monstruoJefe;
 
     // Relación bidireccional: usa la FK bosque_id en Monstruo, evita tabla intermedia bosque_monstruo
