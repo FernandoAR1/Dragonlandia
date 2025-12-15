@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.example.Controller.Controller;
+import com.example.Controller.ControllerBosque;
+import com.example.Controller.ControllerDragon;
+import com.example.Controller.ControllerMago;
+import com.example.Controller.ControllerMonstruo;
+
 import com.example.Model.Bosque;
 import com.example.Model.Dragon;
 import com.example.Model.Hechizo;
@@ -16,30 +21,38 @@ import com.example.Model.tipo;
 public class Interfaz {
     private Scanner scanner;
     private Controller controller;
+    private ControllerBosque controllerBosque;
+    private ControllerMonstruo controllerMonstruo;
+    private ControllerDragon controllerDragon;
+    private ControllerMago controllerMago;
 
     public Interfaz() {
         this.scanner = new Scanner(System.in);
         this.controller = Controller.getInstance();
+        this.controllerBosque = new ControllerBosque();
+        this.controllerMonstruo = new ControllerMonstruo();
+        this.controllerDragon = new ControllerDragon();
+        this.controllerMago = new ControllerMago();
     }
 
     public void iniciar() {
         Mago mago = crearMago();
-        controller.guardarMago(mago);
+        controllerMago.guardarMago(mago);
 
         Bosque bosque = crearBosque();
-        controller.guardarBosque(bosque);
+        controllerBosque.guardarBosque(bosque);
 
         Monstruo monstruo = crearMonstruo("Monstruo jefe del bosque:", bosque);
-        controller.guardarMonstruo(monstruo);
+        controllerMonstruo.guardarMonstruo(monstruo);
 
         Monstruo monstruo2 = crearMonstruo("Segundo monstruo:", bosque);
-        controller.guardarMonstruo(monstruo2);
+        controllerMonstruo.guardarMonstruo(monstruo2);
 
         Dragon dragon = crearDragon(bosque);
-        controller.guardarDragon(dragon);
+        controllerDragon.guardarDragon(dragon);
 
         bosque.setMonstruoJefe(monstruo);
-        controller.actualizarBosque(bosque);
+        controllerBosque.actualizarBosque(bosque);
 
         System.out.println(
                 "Iniciando batalla entre el mago " + mago.getNombre() + " y el monstruo " + monstruo.getNombre());

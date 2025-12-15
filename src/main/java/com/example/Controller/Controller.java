@@ -1,16 +1,9 @@
 package com.example.Controller;
 
-import com.example.Model.Bosque;
-import com.example.Model.Dragon;
 import com.example.Model.Hechizo;
 import com.example.Model.Mago;
 import com.example.Model.Monstruo;
 import com.example.Model.nombreHechizo;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 
 public class Controller {
 
@@ -24,81 +17,6 @@ public class Controller {
             instance = new Controller();
         }
         return instance;
-    }
-
-    public void guardarMago(Mago mago) {
-        Session session = null;
-
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
-
-            session.persist(mago);
-            tx.commit();
-
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
-
-    public void guardarMonstruo(Monstruo monstruo) {
-        Session session = null;
-
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
-
-            session.persist(monstruo);
-            tx.commit();
-
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
-
-    public void guardarBosque(Bosque bosque) {
-        Session session = null;
-
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
-
-            session.persist(bosque);
-            tx.commit();
-
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
-
-    public void guardarDragon(Dragon dragon) {
-        Session session = null;
-
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
-
-            session.persist(dragon);
-            tx.commit();
-
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
-
-    public void actualizarBosque(Bosque bosque) {
-        Session session = null;
-
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
-
-            session.merge(bosque);
-            tx.commit();
-
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
     }
 
     public void simularBatalla(Mago mago, Monstruo monstruo) {
