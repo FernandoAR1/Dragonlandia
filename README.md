@@ -20,8 +20,10 @@ classDiagram
         +guardarMago(mago: Mago) void
         +guardarMonstruo(monstruo: Monstruo) void
         +guardarBosque(bosque: Bosque) void
+        +guardarDragon(dragon: Dragon) void
         +actualizarBosque(bosque: Bosque) void
         +simularBatalla(mago: Mago, monstruo: Monstruo) void
+        +getInstance() Controller
     }
 
     class Mago {
@@ -29,7 +31,15 @@ classDiagram
         -nombre: String
         -vida: int
         -nivelMagia: int
+        -hechizos: List~Hechizo~
         +lanzarHechizo(monstruo: Monstruo) void
+    }
+
+    class Hechizo {
+        -id: int
+        -nombre: nombreHechizo
+        -efecto: int
+        -mago: Mago
     }
 
     class Monstruo {
@@ -48,8 +58,18 @@ classDiagram
         -nivelPeligro: int
         -monstruoJefe: Monstruo
         -monstruos: List~Monstruo~
+        -dragones: List~Dragon~
         +mostrarJefe() void
         +cambiarJefe(nuevoJefe: Monstruo) void
+    }
+
+    class Dragon {
+        -id: int
+        -nombre: String
+        -intensidadFuego: int
+        -resistencia: int
+        -bosque: Bosque
+        +exhalar(monstruo: Monstruo) void
     }
 
     class tipo {
@@ -59,26 +79,51 @@ classDiagram
         ESPECTRO
     }
 
+    class nombreHechizo {
+        <<enumeration>>
+        Bola_de_fuego
+        Rayo
+        Bola_de_nieve
+        Descarga
+        Maldicion_duende
+    }
+
     Main --> Interfaz : crea
     Interfaz --> Controller : usa
     Controller --> Mago :usa
     Controller --> Bosque :usa
     Controller --> Monstruo :usa
+    Controller --> Dragon :usa
     Monstruo --> tipo :usa
+    Mago --> Hechizo :tiene
+    Hechizo --> nombreHechizo :usa
+    Hechizo --> Mago :pertenece a
+    Bosque --> Monstruo :contiene
+    Bosque --> Dragon :contiene
+    Bosque --> Monstruo :monstruoJefe
 ```
 
 ### Diagrama BD Mermaid 
 
 ```mermaid
 erDiagram
-    BOSQUE ||--|| MONSTRUO : "1.1 es jefe"
-    MONSTRUO ||--|| BOSQUE : "1-N tiene"
+    BOSQUE ||--|| MONSTRUO : "monstruoJefe_id (1..1)"
+    BOSQUE ||--o{ MONSTRUO : "monstruos (1..N)"
+    BOSQUE ||--o{ DRAGON : "dragones (1..N)"
+    MAGO ||--o{ HECHIZO : "hechizos (1..N)"
 
     MAGO {
         int id
         string nombre
         int vida
         int nivelMagia
+    }
+
+    HECHIZO {
+        int id
+        string nombreHechizo
+        int efecto
+        int mago_id
     }
 
     MONSTRUO {
@@ -95,5 +140,13 @@ erDiagram
         string nombre
         int nivelPeligro
         int monstruoJefe_id
+    }
+
+    DRAGON {
+        int id
+        string nombre
+        int intensidadFuego
+        int resistencia
+        int bosque_id
     }
 ```
