@@ -3,6 +3,7 @@ package com.example.View;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Random;
 
 import com.example.Controller.Controller;
 import com.example.Controller.ControllerBosque;
@@ -36,8 +37,6 @@ public class Interfaz {
     }
 
     public void iniciar() {
-        Mago mago = crearMago();
-        controllerMago.guardarMago(mago);
 
         Bosque bosque = crearBosque();
         controllerBosque.guardarBosque(bosque);
@@ -48,15 +47,23 @@ public class Interfaz {
         Monstruo monstruo2 = crearMonstruo("Segundo monstruo:", bosque);
         controllerMonstruo.guardarMonstruo(monstruo2);
 
-        Dragon dragon = crearDragon(bosque);
-        controllerDragon.guardarDragon(dragon);
+        Monstruo monstruo3 = crearMonstruo("Tercer monstruo:", bosque);
+        controllerMonstruo.guardarMonstruo(monstruo3);
 
         bosque.setMonstruoJefe(monstruo);
         controllerBosque.actualizarBosque(bosque);
 
-        System.out.println(
-                "Iniciando batalla entre el mago " + mago.getNombre() + " y el monstruo " + monstruo.getNombre());
-        controller.simularBatalla(mago, monstruo);
+        Dragon dragon = crearDragon(bosque);
+        controllerDragon.guardarDragon(dragon);
+
+        Mago mago = crearMago();
+        controllerMago.guardarMago(mago);
+
+        Mago mago2 = crearMago();
+        controllerMago.guardarMago(mago2);
+
+        System.out.println("Iniciando batalla entre el mago " + mago.getNombre() + " y el monstruo " + monstruo.getNombre());
+        controller.simularBatalla(mago, monstruo, mago2, monstruo2, monstruo3, dragon);
 
         scanner.close();
     }
@@ -73,9 +80,14 @@ public class Interfaz {
 
         Mago mago = new Mago(nombreMago, vidaMago, nivelMagia);
         List<Hechizo> hechizos = new ArrayList<>();
-        hechizos.add(new Hechizo(nombreHechizo.Bola_de_fuego, mago));
-        hechizos.add(new Hechizo(nombreHechizo.Rayo, mago));
-        hechizos.add(new Hechizo(nombreHechizo.Bola_de_nieve, mago));
+        
+        Random random = new Random();
+        nombreHechizo[] hechizosDisponibles = nombreHechizo.values();
+        
+        for (int i = 0; i < 2; i++) {
+            nombreHechizo nombreAleatorio = hechizosDisponibles[random.nextInt(hechizosDisponibles.length)];
+            hechizos.add(new Hechizo(nombreAleatorio, mago));
+        }
 
         mago.setHechizos(hechizos);
 

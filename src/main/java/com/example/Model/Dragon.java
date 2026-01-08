@@ -52,6 +52,9 @@ public class Dragon {
     }
 
     public int getResistencia() {
+        if (resistencia < 0) {
+            resistencia = 0;
+        }
         return resistencia;
     }
 

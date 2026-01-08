@@ -46,6 +46,9 @@ public class Mago {
     }
 
     public int getVida() {
+        if (vida<0) {
+            vida = 0;
+        }
         return vida;
     }
 
