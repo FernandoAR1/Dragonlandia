@@ -7,38 +7,47 @@ import org.hibernate.cfg.Configuration;
 
 import com.example.Model.Mago;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+
 public class ControllerMago {
+
+    Controller controller = Controller.getInstance();
 
     public ControllerMago() {
     }
 
     public void guardarMago(Mago mago) {
-        Session session = null;
+        EntityManager em = controller.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
 
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
-
-            session.persist(mago);
+        try {
+            tx.begin();
+            em.persist(mago);
             tx.commit();
 
         } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) em.close();
         }
     }
 
     public void actualizarMago(Mago mago) {
-        Session session = null;
+        EntityManager em = controller.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
 
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
-
-            session.merge(mago);
+        try {
+            tx.begin();
+            em.merge(mago);
             tx.commit();
 
         } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) em.close();
         }
     }
 

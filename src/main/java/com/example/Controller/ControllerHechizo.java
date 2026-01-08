@@ -1,75 +1,85 @@
 package com.example.Controller;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-
 import com.example.Model.Hechizo;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+
 public class ControllerHechizo {
+
+    Controller controller = Controller.getInstance();
 
     public ControllerHechizo() {
     }
 
     public void guardarHechizo(Hechizo hechizo) {
-        Session session = null;
+        EntityManager em = controller.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
 
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
-
-            session.persist(hechizo);
+        try {
+            tx.begin();
+            em.persist(hechizo);
             tx.commit();
 
         } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) em.close();
         }
     }
 
     public void actualizarHechizo(Hechizo hechizo) {
-        Session session = null;
+        EntityManager em = controller.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
 
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
-
-            session.merge(hechizo);
+        try {
+            tx.begin();
+            em.merge(hechizo);
             tx.commit();
 
         } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) em.close();
         }
     }
 
     public void eliminarHechizo(Hechizo hechizo) {
-        Session session = null;
+        EntityManager em = controller.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
 
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
-
-            session.remove(hechizo);
+        try {
+            tx.begin();
+            Hechizo managed = em.contains(hechizo) ? hechizo : em.merge(hechizo);
+            em.remove(managed);
             tx.commit();
 
         } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) em.close();
         }
     }
 
     public Hechizo obtenerHechizoPorId(int id) {
-        Session session = null;
+        EntityManager em = controller.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         Hechizo hechizo = null;
 
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
+        try {
+            tx.begin();
 
-            hechizo = session.get(Hechizo.class, id);
+            hechizo = em.find(Hechizo.class, id);
             tx.commit();
 
         } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) em.close();
         }
 
         return hechizo;

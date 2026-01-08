@@ -5,9 +5,15 @@ import com.example.Model.Mago;
 import com.example.Model.Monstruo;
 import com.example.Model.nombreHechizo;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
+
 public class Controller {
 
     private static Controller instance;
+    private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Dragonlandia");
 
     private Controller() {
     }
@@ -53,6 +59,18 @@ public class Controller {
         } else {
             System.out.println("El monstruo " + monstruo.getNombre() + " domina el bosque!");
             new ControllerMago().eliminarMago(mago);
+        }
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManagerFactory.createEntityManager();
+    }
+    public EntityTransaction getTransaction() {
+        return getEntityManager().getTransaction();
+    }
+    public static void close() {
+        if (entityManagerFactory.isOpen()) {
+            entityManagerFactory.close();
         }
     }
 }

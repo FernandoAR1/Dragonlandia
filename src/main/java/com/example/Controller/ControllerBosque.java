@@ -1,75 +1,84 @@
 package com.example.Controller;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-
 import com.example.Model.Bosque;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 
 public class ControllerBosque {
 
-    public ControllerBosque() {
+    Controller controller = Controller.getInstance();
+
+    public ControllerBosque() {;
     }
 
     public void guardarBosque(Bosque bosque) {
-        Session session = null;
+        EntityManager em = controller.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
 
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
-
-            session.persist(bosque);
+        try {
+            tx.begin();
+            em.persist(bosque);
             tx.commit();
 
         } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) em.close();
         }
     }
 
     public void actualizarBosque(Bosque bosque) {
-        Session session = null;
+        EntityManager em = controller.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
 
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
-
-            session.merge(bosque);
+        try {
+            tx.begin();
+            em.merge(bosque);
             tx.commit();
 
         } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) em.close();
         }
     }
 
     public void eliminarBosque(Bosque bosque) {
-        Session session = null;
+        EntityManager em = controller.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
 
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
-
-            session.remove(bosque);
+        try {
+            tx.begin();
+            Bosque managed = em.contains(bosque) ? bosque : em.merge(bosque);
+            em.remove(managed);
             tx.commit();
 
         } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) em.close();
         }
     }
 
     public Bosque obtenerBosquePorId(int id) {
-        Session session = null;
+        EntityManager em = controller.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         Bosque bosque = null;
 
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
-
-            bosque = session.get(Bosque.class, id);
+        try {
+            tx.begin();
+            bosque = em.find(Bosque.class, id);
             tx.commit();
 
         } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) em.close();
         }
 
         return bosque;

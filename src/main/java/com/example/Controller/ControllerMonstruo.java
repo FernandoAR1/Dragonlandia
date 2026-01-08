@@ -1,75 +1,84 @@
 package com.example.Controller;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-
 import com.example.Model.Monstruo;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+
 public class ControllerMonstruo {
+
+    Controller controller = Controller.getInstance();
 
     public ControllerMonstruo() {
     }
 
     public void guardarMonstruo(Monstruo monstruo) {
-        Session session = null;
+        EntityManager em = controller.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
 
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
-
-            session.persist(monstruo);
+        try {
+            tx.begin();
+            em.persist(monstruo);
             tx.commit();
 
         } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) em.close();
         }
     }
 
     public void actualizarMonstruo(Monstruo monstruo) {
-        Session session = null;
+        EntityManager em = controller.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
 
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
-
-            session.merge(monstruo);
+        try {
+            tx.begin();
+            em.merge(monstruo);
             tx.commit();
 
         } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) em.close();
         }
     }
 
     public void eliminarMonstruo(Monstruo monstruo) {
-        Session session = null;
+        EntityManager em = controller.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
 
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
-
-            session.remove(monstruo);
+        try {
+            tx.begin();
+            Monstruo managed = em.contains(monstruo) ? monstruo : em.merge(monstruo);
+            em.remove(managed);
             tx.commit();
 
         } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) em.close();
         }
     }
 
     public Monstruo obtenerMonstruoPorId(int id) {
-        Session session = null;
+        EntityManager em = controller.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
         Monstruo monstruo = null;
 
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
-
-            monstruo = session.get(Monstruo.class, id);
+        try {
+            tx.begin();
+            monstruo = em.find(Monstruo.class, id);
             tx.commit();
 
         } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) em.close();
         }
 
         return monstruo;
