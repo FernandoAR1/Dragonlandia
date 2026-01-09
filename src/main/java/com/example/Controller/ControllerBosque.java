@@ -14,7 +14,7 @@ public class ControllerBosque {
 
     public void guardarBosque(Bosque bosque) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+        EntityTransaction tx = controller.getTransaction();
 
         try {
             tx.begin();
@@ -31,7 +31,7 @@ public class ControllerBosque {
 
     public void actualizarBosque(Bosque bosque) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+        EntityTransaction tx = controller.getTransaction();
 
         try {
             tx.begin();
@@ -48,7 +48,7 @@ public class ControllerBosque {
 
     public void eliminarBosque(Bosque bosque) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+        EntityTransaction tx = controller.getTransaction();
 
         try {
             tx.begin();
@@ -66,7 +66,7 @@ public class ControllerBosque {
 
     public Bosque obtenerBosquePorId(int id) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+        EntityTransaction tx = controller.getTransaction();
         Bosque bosque = null;
 
         try {

@@ -14,7 +14,7 @@ public class ControllerHechizo {
 
     public void guardarHechizo(Hechizo hechizo) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+        EntityTransaction tx = controller.getTransaction();
 
         try {
             tx.begin();
@@ -31,7 +31,7 @@ public class ControllerHechizo {
 
     public void actualizarHechizo(Hechizo hechizo) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+        EntityTransaction tx = controller.getTransaction();
 
         try {
             tx.begin();
@@ -48,7 +48,7 @@ public class ControllerHechizo {
 
     public void eliminarHechizo(Hechizo hechizo) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+        EntityTransaction tx = controller.getTransaction();
 
         try {
             tx.begin();
@@ -66,7 +66,7 @@ public class ControllerHechizo {
 
     public Hechizo obtenerHechizoPorId(int id) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+        EntityTransaction tx = controller.getTransaction();
         Hechizo hechizo = null;
 
         try {

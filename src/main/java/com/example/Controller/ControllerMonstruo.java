@@ -14,7 +14,7 @@ public class ControllerMonstruo {
 
     public void guardarMonstruo(Monstruo monstruo) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+        EntityTransaction tx = controller.getTransaction();
 
         try {
             tx.begin();
@@ -31,7 +31,7 @@ public class ControllerMonstruo {
 
     public void actualizarMonstruo(Monstruo monstruo) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+        EntityTransaction tx = controller.getTransaction();
 
         try {
             tx.begin();
@@ -48,7 +48,7 @@ public class ControllerMonstruo {
 
     public void eliminarMonstruo(Monstruo monstruo) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+        EntityTransaction tx = controller.getTransaction();
 
         try {
             tx.begin();
@@ -66,7 +66,7 @@ public class ControllerMonstruo {
 
     public Monstruo obtenerMonstruoPorId(int id) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+        EntityTransaction tx = controller.getTransaction();
         Monstruo monstruo = null;
 
         try {

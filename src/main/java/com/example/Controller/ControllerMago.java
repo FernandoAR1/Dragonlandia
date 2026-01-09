@@ -1,10 +1,5 @@
 package com.example.Controller;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-
 import com.example.Model.Mago;
 
 import jakarta.persistence.EntityManager;
@@ -19,7 +14,7 @@ public class ControllerMago {
 
     public void guardarMago(Mago mago) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+        EntityTransaction tx = controller.getTransaction();
 
         try {
             tx.begin();
@@ -36,7 +31,7 @@ public class ControllerMago {
 
     public void actualizarMago(Mago mago) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+        EntityTransaction tx = controller.getTransaction();
 
         try {
             tx.begin();
@@ -52,33 +47,40 @@ public class ControllerMago {
     }
 
     public void eliminarMago(Mago mago) {
-        Session session = null;
+        EntityManager em = controller.getEntityManager();
+        EntityTransaction tx = controller.getTransaction();
 
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
-
-            session.remove(mago);
+        try {
+            tx.begin();
+            Mago managed = em.find(Mago.class, mago.getId());
+            if (managed != null) {
+                em.remove(managed);
+            }
             tx.commit();
 
         } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) em.close();
         }
     }
 
     public Mago obtenerMagoPorId(int id) {
-        Session session = null;
+        EntityManager em = controller.getEntityManager();
+        EntityTransaction tx = controller.getTransaction();
         Mago mago = null;
 
-        try (SessionFactory factory = new Configuration().configure().buildSessionFactory();) {
-            session = factory.getCurrentSession();
-            Transaction tx = session.beginTransaction();
-
-            mago = session.get(Mago.class, id);
+        try {
+            tx.begin();
+            mago = em.find(Mago.class, id);
             tx.commit();
 
         } catch (Exception e) {
+            if (tx.isActive()) tx.rollback();
             System.out.println("Error: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) em.close();
         }
 
         return mago;
