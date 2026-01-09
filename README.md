@@ -22,7 +22,7 @@ classDiagram
         +guardarBosque(bosque: Bosque) void
         +guardarDragon(dragon: Dragon) void
         +actualizarBosque(bosque: Bosque) void
-        +simularBatalla(mago: Mago, monstruo: Monstruo) void
+        +simularBatalla(mago: Mago, monstruo: Monstruo, mago2: Mago, monstruo2: Mostruo, monstruo3: Mostruo, dragon: Dragon) void
         +getInstance() Controller
     }
 

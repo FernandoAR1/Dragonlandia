@@ -173,23 +173,36 @@ public class Controller {
             System.out.println("💀 Los monstruos dominan el bosque!");
         }
 
+        // Eliminar entidades derrotadas
         if (mago.getVida()==0) {
             new ControllerMago().eliminarMago(mago);
+        }else{
+            new ControllerMago().actualizarMago(mago);
         }
         if (mago2.getVida()==0) {
             new ControllerMago().eliminarMago(mago2);
+        }else{
+            new ControllerMago().actualizarMago(mago2);
         }
         if (monstruo.getVida()==0) {
             new ControllerMonstruo().eliminarMonstruo(monstruo);
+        }else{
+            new ControllerMonstruo().actualizarMonstruo(monstruo);
         }
         if (monstruo2.getVida()==0) {
             new ControllerMonstruo().eliminarMonstruo(monstruo2);
+        }else{
+            new ControllerMonstruo().actualizarMonstruo(monstruo2);
         }
         if (monstruo3.getVida()==0) {
             new ControllerMonstruo().eliminarMonstruo(monstruo3);
+        }else{
+            new ControllerMonstruo().actualizarMonstruo(monstruo3);
         }
         if (dragon.getResistencia()==0) {
             new ControllerDragon().eliminarDragon(dragon);
+        }else{
+            new ControllerDragon().actualizarDragon(dragon);
         }
     }
 
