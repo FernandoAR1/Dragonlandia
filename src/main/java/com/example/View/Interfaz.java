@@ -66,6 +66,7 @@ public class Interfaz {
         controller.simularBatalla(mago, monstruo, mago2, monstruo2, monstruo3, dragon);
 
         scanner.close();
+        Controller.close();
     }
 
     private Mago crearMago() {
