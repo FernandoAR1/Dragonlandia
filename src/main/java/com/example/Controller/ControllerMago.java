@@ -14,7 +14,7 @@ public class ControllerMago {
 
     public void guardarMago(Mago mago) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = controller.getTransaction();
+        EntityTransaction tx = em.getTransaction();
 
         try {
             tx.begin();
@@ -31,7 +31,7 @@ public class ControllerMago {
 
     public void actualizarMago(Mago mago) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = controller.getTransaction();
+        EntityTransaction tx = em.getTransaction();
 
         try {
             tx.begin();
@@ -48,7 +48,7 @@ public class ControllerMago {
 
     public void eliminarMago(Mago mago) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = controller.getTransaction();
+        EntityTransaction tx = em.getTransaction();
 
         try {
             tx.begin();
@@ -68,7 +68,7 @@ public class ControllerMago {
 
     public Mago obtenerMagoPorId(int id) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = controller.getTransaction();
+        EntityTransaction tx = em.getTransaction();
         Mago mago = null;
 
         try {

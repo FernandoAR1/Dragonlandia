@@ -14,7 +14,7 @@ public class ControllerDragon {
 
     public void guardarDragon(Dragon dragon) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = controller.getTransaction();
+        EntityTransaction tx = em.getTransaction();
 
         try {
             tx.begin();
@@ -31,7 +31,7 @@ public class ControllerDragon {
 
     public void actualizarDragon(Dragon dragon) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = controller.getTransaction();
+        EntityTransaction tx = em.getTransaction();
 
         try {
             tx.begin();
@@ -48,7 +48,7 @@ public class ControllerDragon {
 
     public void eliminarDragon(Dragon dragon) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = controller.getTransaction();
+        EntityTransaction tx = em.getTransaction();
 
         try {
             tx.begin();
@@ -66,7 +66,7 @@ public class ControllerDragon {
 
     public Dragon obtenerDragonPorId(int id) {
         EntityManager em = controller.getEntityManager();
-        EntityTransaction tx = controller.getTransaction();
+        EntityTransaction tx = em.getTransaction();
         Dragon dragon = null;
 
         try {

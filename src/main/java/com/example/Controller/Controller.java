@@ -172,6 +172,25 @@ public class Controller {
         } else {
             System.out.println("💀 Los monstruos dominan el bosque!");
         }
+
+        if (mago.getVida()==0) {
+            new ControllerMago().eliminarMago(mago);
+        }
+        if (mago2.getVida()==0) {
+            new ControllerMago().eliminarMago(mago2);
+        }
+        if (monstruo.getVida()==0) {
+            new ControllerMonstruo().eliminarMonstruo(monstruo);
+        }
+        if (monstruo2.getVida()==0) {
+            new ControllerMonstruo().eliminarMonstruo(monstruo2);
+        }
+        if (monstruo3.getVida()==0) {
+            new ControllerMonstruo().eliminarMonstruo(monstruo3);
+        }
+        if (dragon.getResistencia()==0) {
+            new ControllerDragon().eliminarDragon(dragon);
+        }
     }
 
 
