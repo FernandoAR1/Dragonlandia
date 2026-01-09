@@ -10,7 +10,6 @@ import com.example.Model.nombreHechizo;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
 public class Controller {
@@ -209,9 +208,6 @@ public class Controller {
 
     public EntityManager getEntityManager() {
         return entityManagerFactory.createEntityManager();
-    }
-    public EntityTransaction getTransaction() {
-        return getEntityManager().getTransaction();
     }
     public static void close() {
         if (entityManagerFactory.isOpen()) {
