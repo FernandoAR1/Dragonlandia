@@ -4,6 +4,8 @@
 
 Juego de consola sencillo para simular la conquista de un bosque entre un mago y monstruos usando Hibernate y MySQL. El flujo se gestiona desde una interfaz de texto que solicita los datos por teclado y persiste entidades en la base de datos.
 
+## Analisis
+
 ### Diagrama de Clases Mermaid 
 
 ```mermaid
@@ -102,6 +104,7 @@ classDiagram
     Bosque --> Dragon :contiene
     Bosque --> Monstruo :monstruoJefe
 ```
+## Diseño
 
 ### Diagrama BD Mermaid 
 
@@ -150,3 +153,7 @@ erDiagram
         int bosque_id
     }
 ```
+
+## Manual de Usuario
+
+[Manual de Usuario](ManualUsuario.md)
