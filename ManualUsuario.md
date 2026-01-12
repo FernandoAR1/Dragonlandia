@@ -46,7 +46,7 @@ La aplicación creará automáticamente:
 
 ---
 
-## ⚔️ Sistema de Batalla
+## Sistema de Batalla
 
 ### **Mecánica de Combate**
 
@@ -60,10 +60,9 @@ La batalla se desarrolla en **rondas sucesivas** donde:
 
 ---
 
-### **Finalización de la Batalla** 🏆
+### **Finalización de la Batalla** 
 
 La batalla termina cuando:
 -  Todos los monstruos y magos son derrotados
--  El dragón guardián es derrotado
 
 ![Final de la Batalla](img/Final.png)
