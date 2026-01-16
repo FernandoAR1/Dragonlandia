@@ -1,6 +1,6 @@
-package com.example.Model;
+package com.example.model;
 
-import com.example.View.Interfaz;
+import com.example.view.Interfaz;
 
 public class Main {
     public static void main(String[] args) {

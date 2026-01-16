@@ -1,6 +1,6 @@
-package com.example.Controller;
+package com.example.controller;
 
-import com.example.Model.Bosque;
+import com.example.model.Bosque;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;

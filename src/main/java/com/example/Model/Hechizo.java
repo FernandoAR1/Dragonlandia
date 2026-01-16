@@ -1,4 +1,4 @@
-package com.example.Model;
+package com.example.model;
 
 import jakarta.persistence.*;
 
@@ -11,7 +11,7 @@ public class Hechizo {
     private int id;
 
     @Enumerated(EnumType.STRING)
-    private nombreHechizo nombre;
+    private HechizoEnum nombre;
 
     private int efecto;
 
@@ -21,7 +21,7 @@ public class Hechizo {
 
     public Hechizo() {}
 
-    public Hechizo(nombreHechizo nombre,Mago mago) {
+    public Hechizo(HechizoEnum nombre,Mago mago) {
         this.nombre = nombre;
         this.efecto = nombre.getEfecto();
         this.mago = mago;
@@ -31,11 +31,11 @@ public class Hechizo {
         return id;
     }
 
-    public nombreHechizo getNombre() {
+    public HechizoEnum getNombre() {
         return nombre;
     }
 
-    public void setNombre(nombreHechizo nombre) {
+    public void setNombre(HechizoEnum nombre) {
         this.nombre = nombre;
     }
 

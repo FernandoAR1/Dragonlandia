@@ -1,12 +1,12 @@
-package com.example.Controller;
+package com.example.controller;
 
 import java.util.Random;
 
-import com.example.Model.Dragon;
-import com.example.Model.Hechizo;
-import com.example.Model.Mago;
-import com.example.Model.Monstruo;
-import com.example.Model.nombreHechizo;
+import com.example.model.Dragon;
+import com.example.model.Hechizo;
+import com.example.model.Mago;
+import com.example.model.Monstruo;
+import com.example.model.HechizoEnum;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -43,12 +43,12 @@ public class Controller {
             // ==========================
             // 1. MAGOS LANZAN HECHIZOS
             // ==========================
-            nombreHechizo[] hechizosDisponibles = nombreHechizo.values();
+            HechizoEnum[] hechizosDisponibles = HechizoEnum.values();
 
             // ----- MAGO 1 -----
             if (mago.getVida() > 0 && monstruoJefe.getVida() > 0) {
 
-                nombreHechizo h = hechizosDisponibles[random.nextInt(hechizosDisponibles.length)];
+                HechizoEnum h = hechizosDisponibles[random.nextInt(hechizosDisponibles.length)];
                 boolean conoce = false;
 
                 for (Hechizo hechizo : mago.getHechizos()) {
@@ -68,7 +68,7 @@ public class Controller {
             // ----- MAGO 2 -----
             if (mago2.getVida() > 0 && monstruoJefe.getVida() > 0) {
 
-                nombreHechizo h2 = hechizosDisponibles[random.nextInt(hechizosDisponibles.length)];
+                HechizoEnum h2 = hechizosDisponibles[random.nextInt(hechizosDisponibles.length)];
                 boolean conoce2 = false;
 
                 for (Hechizo hechizo : mago2.getHechizos()) {

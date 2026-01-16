@@ -1,6 +1,6 @@
-package com.example.Model;
+package com.example.model;
 
-public enum nombreHechizo {
+public enum HechizoEnum {
     Bola_de_fuego(10),
     Rayo(20),
     Bola_de_nieve(999999),
@@ -9,7 +9,7 @@ public enum nombreHechizo {
 
     private final int efecto;
 
-    nombreHechizo(int efecto) {
+    HechizoEnum(int efecto) {
         this.efecto = efecto;
     }
 

@@ -1,6 +1,6 @@
-package com.example.Controller;
+package com.example.controller;
 
-import com.example.Model.Hechizo;
+import com.example.model.Hechizo;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;

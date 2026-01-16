@@ -157,3 +157,4 @@ erDiagram
 ## Manual de Usuario
 
 [Manual de Usuario](ManualUsuario.md)
+[PDF Tablas](AnteloRey_Fernando_DragonlandiaHibernate.pdf)

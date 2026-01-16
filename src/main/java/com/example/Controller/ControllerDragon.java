@@ -1,6 +1,6 @@
-package com.example.Controller;
+package com.example.controller;
 
-import com.example.Model.Dragon;
+import com.example.model.Dragon;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;

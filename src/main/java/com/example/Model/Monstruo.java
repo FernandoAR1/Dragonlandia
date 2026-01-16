@@ -1,4 +1,4 @@
-package com.example.Model;
+package com.example.model;
 
 import jakarta.persistence.*;
 
@@ -13,7 +13,7 @@ public class Monstruo {
     private String nombre;
     private int vida;
     @Enumerated(EnumType.STRING)
-    private tipo tipo;
+    private TipoMonstruo tipo;
     private int fuerza;
 
     @ManyToOne
@@ -23,7 +23,7 @@ public class Monstruo {
     public Monstruo() {
     }
 
-    public Monstruo(String nombre, int vida, tipo tipo, int fuerza, Bosque bosque) {
+    public Monstruo(String nombre, int vida, TipoMonstruo tipo, int fuerza, Bosque bosque) {
         this.nombre = nombre;
         this.vida = vida;
         this.tipo = tipo;
@@ -58,11 +58,11 @@ public class Monstruo {
         this.vida = vida;
     }
 
-    public tipo getTipo() {
+    public TipoMonstruo getTipo() {
         return tipo;
     }
 
-    public void setTipo(tipo tipo) {
+    public void setTipo(TipoMonstruo tipo) {
         this.tipo = tipo;
     }
 

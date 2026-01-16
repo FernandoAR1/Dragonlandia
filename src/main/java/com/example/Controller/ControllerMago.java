@@ -1,6 +1,6 @@
-package com.example.Controller;
+package com.example.controller;
 
-import com.example.Model.Mago;
+import com.example.model.Mago;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;

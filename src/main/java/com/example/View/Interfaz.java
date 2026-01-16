@@ -1,23 +1,22 @@
-package com.example.View;
+package com.example.view;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Random;
 
-import com.example.Controller.Controller;
-import com.example.Controller.ControllerBosque;
-import com.example.Controller.ControllerDragon;
-import com.example.Controller.ControllerMago;
-import com.example.Controller.ControllerMonstruo;
-
-import com.example.Model.Bosque;
-import com.example.Model.Dragon;
-import com.example.Model.Hechizo;
-import com.example.Model.Mago;
-import com.example.Model.Monstruo;
-import com.example.Model.nombreHechizo;
-import com.example.Model.tipo;
+import com.example.controller.Controller;
+import com.example.controller.ControllerBosque;
+import com.example.controller.ControllerDragon;
+import com.example.controller.ControllerMago;
+import com.example.controller.ControllerMonstruo;
+import com.example.model.Bosque;
+import com.example.model.Dragon;
+import com.example.model.Hechizo;
+import com.example.model.Mago;
+import com.example.model.Monstruo;
+import com.example.model.HechizoEnum;
+import com.example.model.TipoMonstruo;
 
 public class Interfaz {
     private Scanner scanner;
@@ -83,10 +82,10 @@ public class Interfaz {
         List<Hechizo> hechizos = new ArrayList<>();
         
         Random random = new Random();
-        nombreHechizo[] hechizosDisponibles = nombreHechizo.values();
+        HechizoEnum[] hechizosDisponibles = HechizoEnum.values();
         
         for (int i = 0; i < 2; i++) {
-            nombreHechizo nombreAleatorio = hechizosDisponibles[random.nextInt(hechizosDisponibles.length)];
+            HechizoEnum nombreAleatorio = hechizosDisponibles[random.nextInt(hechizosDisponibles.length)];
             hechizos.add(new Hechizo(nombreAleatorio, mago));
         }
 
@@ -108,7 +107,7 @@ public class Interfaz {
         scanner.nextLine();
         System.out.print("Introduce el tipo del monstruo (OGRO, TROLL, ESPECTRO): ");
         String tipoStr = scanner.nextLine();
-        tipo tipoMonstruo = tipo.valueOf(tipoStr.toUpperCase());
+        TipoMonstruo tipoMonstruo = TipoMonstruo.valueOf(tipoStr.toUpperCase());
         System.out.print("Introduce el poder de ataque del monstruo: ");
         int poderAtaque = scanner.nextInt();
         scanner.nextLine();
