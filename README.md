@@ -19,11 +19,16 @@ classDiagram
     }
 
     class Controller {
+        -Todos los Controllers
         +guardarMago(mago: Mago) void
         +guardarMonstruo(monstruo: Monstruo) void
         +guardarBosque(bosque: Bosque) void
         +guardarDragon(dragon: Dragon) void
+        +actualizarDragon(dragon: Dragon) void
+        +actualizarMonstruo(mostruo: Mosntruo) void
         +actualizarBosque(bosque: Bosque) void
+        +actualizarMago(mago: Mago) void
+        +...(Todo lo demas)
         +simularBatalla(mago: Mago, monstruo: Monstruo, mago2: Mago, monstruo2: Mostruo, monstruo3: Mostruo, dragon: Dragon) void
         +getInstance() Controller
     }
@@ -157,4 +162,7 @@ erDiagram
 ## Manual de Usuario
 
 [Manual de Usuario](ManualUsuario.md)
+
+## PFD Tablas
+
 [PDF Tablas](AnteloRey_Fernando_DragonlandiaHibernate.pdf)
